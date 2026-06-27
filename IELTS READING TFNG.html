@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>True / False / Not Given Practice</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;padding:20px;font-size:15px}
+    .container{max-width:700px;margin:0 auto;background:#fff;border-radius:10px;padding:30px;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+    h1{font-size:1.4em;color:#222;margin-bottom:6px}
+    .subtitle{color:#555;font-size:.9em;margin-bottom:20px}
+    .student-info{background:#f0f4ff;border:1px solid #c7d2fe;border-radius:8px;padding:18px 20px;margin-bottom:28px}
+    .student-info h3{font-size:1em;color:#4a6cf7;margin-bottom:12px;font-weight:700}
+    .info-row{display:flex;gap:14px;flex-wrap:wrap}
+    .info-field{flex:1;min-width:180px}
+    .info-field label{display:block;font-size:.85em;color:#444;margin-bottom:5px;font-weight:600}
+    .info-field input{width:100%;padding:8px 10px;border:1px solid #bbb;border-radius:5px;font-size:.93em}
+    .info-field input:disabled{background:#f0f0f0}
+    .instructions{background:#f8f9fa;border-left:4px solid #4a6cf7;padding:12px 15px;margin-bottom:25px;font-size:.92em;color:#333;border-radius:4px}
+    .exercise{margin-bottom:35px}
+    .exercise-title{font-size:1.1em;font-weight:700;color:#4a6cf7;margin-bottom:8px;border-bottom:2px solid #e0e4ff;padding-bottom:5px}
+    .passage-note{font-size:.88em;color:#555;margin-bottom:10px;font-style:italic}
+    .headings-box{background:#f0f4ff;border:1px solid #c7d2fe;border-radius:6px;padding:14px 18px;margin-bottom:18px}
+    .headings-box h4{font-size:.9em;color:#444;margin-bottom:8px;font-weight:600}
+    .headings-box ol{margin-left:18px;font-size:.9em;color:#333;line-height:1.7}
+    .extra-note{font-size:.82em;color:#888;margin-bottom:8px;font-style:italic}
+    .question{margin-bottom:12px;padding:12px 14px;border:1px solid #e0e0e0;border-radius:6px;background:#fafafa}
+    .question label{font-weight:600;color:#333;display:block;margin-bottom:7px;font-size:.93em}
+    .question select{width:100%;padding:8px 10px;border:1px solid #bbb;border-radius:5px;font-size:.92em;background:#fff;color:#333}
+    .question select:disabled{background:#f0f0f0}
+    .feedback{margin-top:8px;font-size:.88em;padding:8px 10px;border-radius:4px;display:none;white-space:pre-line}
+    .correct{background:#e6f9f0;border-left:4px solid #22c55e;color:#166534}
+    .incorrect{background:#fff1f1;border-left:4px solid #ef4444;color:#991b1b}
+    .explanation{font-size:.85em;margin-top:5px;color:#555;font-style:italic}
+    .btn-row{display:flex;gap:12px;margin-top:25px;flex-wrap:wrap}
+    button{padding:11px 24px;border:none;border-radius:6px;cursor:pointer;font-size:.95em;font-weight:600}
+    button:hover{opacity:.88}
+    #submitBtn{background:#4a6cf7;color:#fff}
+    #resetBtn{background:#e0e0e0;color:#333;display:none}
+    #scoreBox{display:none;margin-top:20px;padding:16px 20px;background:#f0f4ff;border-radius:8px;border-left:4px solid #4a6cf7}
+    .score-num{font-size:1.5em;font-weight:700;color:#4a6cf7}
+    #emailStatus{margin-top:14px;font-size:.9em;padding:10px 14px;border-radius:6px;display:none;font-weight:500}
+    .email-sending{background:#fff8e1;color:#92400e;border-left:4px solid #f59e0b}
+    .email-ok{background:#e6f9f0;color:#166534;border-left:4px solid #22c55e}
+    .email-fail{background:#fff1f1;color:#991b1b;border-left:4px solid #ef4444}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>True / False / Not Given</h1>
+    <div class="subtitle">Do the following statements agree with the information in Reading Passage?
+TRUE		if the statement agrees with the information 
+FALSE		if the statement contradicts the information
+NOT GIVEN  	if there is no information on this</div>
+
+    <div class="student-info">
+      <h3>Student Information</h3>
+      <div class="info-row">
+        <div class="info-field">
+          <label for="studentName">Full Name</label>
+          <input type="text" id="studentName" required />
+        </div>
+        <div class="info-field">
+          <label for="studentClass">Class</label>
+          <input type="text" id="studentClass" />
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Exercise 1 - Sylvia Earle</div>
+      <div class="passage-note">Choose the correct answer for each statement.</div>
+      <div class="headings-box">
+        <h4>Answer choices</h4>
+        <ol type="i">
+          <li>TRUE</li>
+          <li>FALSE</li>
+          <li>NOT GIVEN</li>
+        </ol>
+      </div>
+      <div class="extra-note">Original question numbers: 1-5</div>
+
+      <div class="question">
+        <label for="sel_1_1">1. Sylvia Earle lives in the USA.</label>
+        <select id="sel_1_1">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_1_1"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_1_2">2. Until 1970, no one had lived underwater.</label>
+        <select id="sel_1_2">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_1_2"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_1_3">3. Sylvia was concerned about the number of fish being caught.</label>
+        <select id="sel_1_3">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_1_3"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_1_4">4. Sylvia's books offer solutions to marine problems.</label>
+        <select id="sel_1_4">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_1_4"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_1_5">5. Sylvia thinks people should avoid eating seafood.</label>
+        <select id="sel_1_5">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_1_5"></div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Exercise 3 - Tea, Beer and Britain</div>
+      <div class="passage-note">Choose the correct answer for each statement.</div>
+      <div class="headings-box">
+        <h4>Answer choices</h4>
+        <ol type="i">
+          <li>TRUE</li>
+          <li>FALSE</li>
+          <li>NOT GIVEN</li>
+        </ol>
+      </div>
+      <div class="extra-note">Original question numbers: 8-13</div>
+
+      <div class="question">
+        <label for="sel_3_1">8. China's transport system was unsuitable for industry in the eighteenth century.</label>
+        <select id="sel_3_1">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_3_1"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_3_2">9. Tea and beer both helped to prevent dysentery in Britain.</label>
+        <select id="sel_3_2">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_3_2"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_3_3">10. Roy Porter disagreed with Professor Macfarlane's research findings.</label>
+        <select id="sel_3_3">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_3_3"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_3_4">11. After 1740, Britain's population declined.</label>
+        <select id="sel_3_4">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_3_4"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_3_5">12. British people used to make beer at home.</label>
+        <select id="sel_3_5">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_3_5"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_3_6">13. Tax on malt indirectly increased the death rate.</label>
+        <select id="sel_3_6">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_3_6"></div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Exercise 4 - Studying in Australia</div>
+      <div class="passage-note">Choose the correct answer for each statement.</div>
+      <div class="headings-box">
+        <h4>Answer choices</h4>
+        <ol type="i">
+          <li>TRUE</li>
+          <li>FALSE</li>
+          <li>NOT GIVEN</li>
+        </ol>
+      </div>
+      <div class="extra-note">Original question numbers: 1-6</div>
+
+      <div class="question">
+        <label for="sel_4_1">1. Teachers try to give students choices rather than one answer.</label>
+        <select id="sel_4_1">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_4_1"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_4_2">2. In Australia, teachers show concern about students' personal circumstances.</label>
+        <select id="sel_4_2">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_4_2"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_4_3">3. Australians use first names to make status differences seem smaller.</label>
+        <select id="sel_4_3">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_4_3"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_4_4">4. Students who study all the time receive positive comments from friends.</label>
+        <select id="sel_4_4">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_4_4"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_4_5">5. It is acceptable to discuss financial matters with people you do not know well.</label>
+        <select id="sel_4_5">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_4_5"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_4_6">6. Younger Australians are usually friendlier than older Australians.</label>
+        <select id="sel_4_6">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_4_6"></div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Exercise 6 - Poster History</div>
+      <div class="passage-note">Choose the correct answer for each statement.</div>
+      <div class="headings-box">
+        <h4>Answer choices</h4>
+        <ol type="i">
+          <li>TRUE</li>
+          <li>FALSE</li>
+          <li>NOT GIVEN</li>
+        </ol>
+      </div>
+      <div class="extra-note">Original question numbers: 10-13</div>
+
+      <div class="question">
+        <label for="sel_6_1">10. By 1950, photographs were more widely used than illustrations on posters.</label>
+        <select id="sel_6_1">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_6_1"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_6_2">11. Features of the Typographic Style can still be seen in modern posters.</label>
+        <select id="sel_6_2">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_6_2"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_6_3">12. The Typographic Style suited global needs at that time in history.</label>
+        <select id="sel_6_3">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_6_3"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_6_4">13. Weingart got many ideas from his students at Basel.</label>
+        <select id="sel_6_4">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_6_4"></div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Exercise 7 - Market Research</div>
+      <div class="passage-note">Choose the correct answer for each statement.</div>
+      <div class="headings-box">
+        <h4>Answer choices</h4>
+        <ol type="i">
+          <li>TRUE</li>
+          <li>FALSE</li>
+          <li>NOT GIVEN</li>
+        </ol>
+      </div>
+      <div class="extra-note">Original question numbers: 1-5</div>
+
+      <div class="question">
+        <label for="sel_7_1">1. Market research developed because Daniel Starch was hired to find out how effective and memorable advertising was.</label>
+        <select id="sel_7_1">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_7_1"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_7_2">2. Methods later used for radio and TV advertising differed from Starch's methods.</label>
+        <select id="sel_7_2">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_7_2"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_7_3">3. Western Wats introduced methods that were less effective than those of Starch and Gallup.</label>
+        <select id="sel_7_3">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_7_3"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_7_4">4. Renaming Western Wats as Opinionology made it the largest market-research company in the world.</label>
+        <select id="sel_7_4">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_7_4"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_7_5">5. Before market research became an industry, people were not interested in public opinion.</label>
+        <select id="sel_7_5">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_7_5"></div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Exercise 10 - Dinosaur Discoveries</div>
+      <div class="passage-note">Choose the correct answer for each statement.</div>
+      <div class="headings-box">
+        <h4>Answer choices</h4>
+        <ol type="i">
+          <li>TRUE</li>
+          <li>FALSE</li>
+          <li>NOT GIVEN</li>
+        </ol>
+      </div>
+      <div class="extra-note">Original question numbers: 1-6</div>
+
+      <div class="question">
+        <label for="sel_10_1">1. Xu Xing went to the Gobi Desert to check fossil evidence for Gigantoraptor.</label>
+        <select id="sel_10_1">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_10_1"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_10_2">2. The 1999 National Geographic Society announcement was based on false evidence.</label>
+        <select id="sel_10_2">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_10_2"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_10_3">3. Like Gigantoraptor, Yanornis martini was first discovered in China.</label>
+        <select id="sel_10_3">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_10_3"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_10_4">4. Bones discovered by Robert Liscomb changed scientists' attitudes to Alaska.</label>
+        <select id="sel_10_4">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_10_4"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_10_5">5. According to Fiorillo, the name Troodon means "wounding tooth".</label>
+        <select id="sel_10_5">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_10_5"></div>
+      </div>
+
+      <div class="question">
+        <label for="sel_10_6">6. Guillermo Heredia suspected that his discovery was a dinosaur fossil.</label>
+        <select id="sel_10_6">
+          <option value="">Choose an answer</option>
+          <option value="TRUE">TRUE</option>
+          <option value="FALSE">FALSE</option>
+          <option value="NOT GIVEN">NOT GIVEN</option>
+        </select>
+        <div class="feedback" id="fb_10_6"></div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button id="submitBtn" onclick="submitAll()">Submit Answers</button>
+      <button id="resetBtn" onclick="resetAll()">Try Again</button>
+    </div>
+
+    <div id="scoreBox"></div>
+    <div id="emailStatus"></div>
+  </div>
+
+  <script>
+    const answers = {
+      "1_1": {"correct":"NOT GIVEN","label":"Ex1 Q1","explanation":"Câu hỏi đưa ra thông tin Sylvia sống tại USA.\nBài viết chỉ đề cập nơi sinh born, không đề cập về nơi sống live."},
+      "1_2": {"correct":"NOT GIVEN","label":"Ex1 Q2","explanation":"Câu hỏi đưa ra thông tin cho tới 1970, chưa có ai sống dưới nước.\nBài viết chỉ nói năm 1970 là đoàn toàn nữ đầu tiên, còn không nhắc tới có phải là người đầu tiên không."},
+      "1_3": {"correct":"TRUE","label":"Ex1 Q3","explanation":"Câu hỏi: Sylvia lo lắng về số cá đang bị bắt.\nTrích dẫn: Her team also studied the problem of over-fishing... Earle warned, and many species were in danger of becoming extinct."},
+      "1_4": {"correct":"TRUE","label":"Ex1 Q4","explanation":"Câu hỏi: Các cuốn sách của Sylvia đưa ra một số giải pháp cho vấn đề của biển.\nTrích dẫn: she has written several books and magazine articles in which she suggests ways of reducing the damage that is being done to the world's oceans."},
+      "1_5": {"correct":"FALSE","label":"Ex1 Q5","explanation":"Câu hỏi: Sylvia nghĩ mọi người nên tránh ăn hải sản.\nTrích dẫn: Although she no longer eats seafood herself, she realises the importance it plays in our diets. It would be wrong to tell people they should stop eating fish from the sea."},
+
+      "3_1": {"correct":"NOT GIVEN","label":"Ex3 Q8","explanation":"Câu hỏi: Hệ thống giao thông của Trung Quốc không phù hợp cho nền công nghiệp vào thế kỷ thứ 18.\nMặc dù China và 18th century được nhắc tới, nhưng không hề nhắc tới việc hệ thống giao thông quốc gia này."},
+      "3_2": {"correct":"TRUE","label":"Ex3 Q9","explanation":"Câu hỏi: Trà và bia đều giúp ích trong việc ngăn chặn căn bệnh kiết lỵ ở Anh.\nTrích dẫn: The antiseptic properties of tannin, the active ingredient in tea, and of hops in beer... allowed urban communities to flourish at close quarters without succumbing to water-borne diseases such as dysentery."},
+      "3_3": {"correct":"FALSE","label":"Ex3 Q10","explanation":"Câu hỏi: Roy Porter không đồng tình với kết quả nghiên cứu của Giáo sư Macfarlane.\nTrích dẫn: Macfarlane's case has been strengthened by support from notable quarters. Roy Porter recently wrote a favourable appraisal of his research."},
+      "3_4": {"correct":"FALSE","label":"Ex3 Q11","explanation":"Câu hỏi: Sau năm 1740, dân số Anh giảm.\nTrích dẫn: Between about 1650 and 1740 the population in Britain was static. But then there was a burst in population growth."},
+      "3_5": {"correct":"NOT GIVEN","label":"Ex3 Q12","explanation":"Câu hỏi: Người Anh từng làm bia tại nhà.\nTuy rằng được đề cập trong hai đoạn C và E, nhưng các đoạn không đề cập việc liệu người Anh có làm bia tại nhà hay không."},
+      "3_6": {"correct":"TRUE","label":"Ex3 Q13","explanation":"Câu hỏi: Thuế lúa mạch gián tiếp làm gia tăng tỉ lệ tử vong.\nTrích dẫn: a tax was introduced on malt... The poor turned to water and gin and in the 1720s the mortality rate began to rise again."},
+
+      "4_1": {"correct":"TRUE","label":"Ex4 Q1","explanation":"Câu hỏi: Các giáo viên cố gắng cung cấp các lựa chọn cho học sinh thay vì cung cấp một đáp án.\nTrích dẫn: a teacher or course tutor will not tell students what to do, but will give them a number of options and suggest they work out which one is the best in their circumstances."},
+      "4_2": {"correct":"NOT GIVEN","label":"Ex4 Q2","explanation":"Câu hỏi: Tại Úc, giáo viên sẽ tỏ ra tâm lý về hoàn cảnh cá nhân của học viên.\nBài viết nói học sinh sẽ tự tìm ra vấn đề của mình chứ không nhắc tới việc giáo viên có quan tâm đến hoàn cảnh của học sinh hay không."},
+      "4_3": {"correct":"TRUE","label":"Ex4 Q3","explanation":"Câu hỏi: Người Úc sử dụng tên riêng mỗi người để cảm thấy địa vị của họ tương tự nhau.\nTrích dẫn: Australians are uncomfortable with differences in status and hence idealise the idea of treating everyone equally... most adult Australians call each other by their first names."},
+      "4_4": {"correct":"FALSE","label":"Ex4 Q4","explanation":"Câu hỏi: Học sinh lúc nào cũng học có thể nhận được những lời bình luận tích cực từ bạn bè.\nTrích dẫn: some students may be critical of others who they perceive as doing nothing but study."},
+      "4_5": {"correct":"FALSE","label":"Ex4 Q5","explanation":"Câu hỏi: Việc thảo luận vấn đề tài chính với người bạn không biết rõ là chấp nhận được.\nTrích dẫn: they may resent someone actually asking them unless the friendship is firmly established. Even then, it is considered very impolite to ask someone what they earn."},
+      "4_6": {"correct":"NOT GIVEN","label":"Ex4 Q6","explanation":"Câu hỏi: Người Úc trẻ thường thân thiện hơn người Úc cao tuổi.\nBài viết chỉ đề cập việc hỏi người già bao nhiêu tuổi là thô lỗ, chứ không hề đề cập gì đến sự so sánh giữa mức độ thân thiện của người già và người trẻ."},
+
+      "6_1": {"correct":"FALSE","label":"Ex6 Q10","explanation":"Câu hỏi: Cho tới năm 1950, ảnh chụp được nhìn thấy rộng rãi hơn minh hoạ trên posters.\nTrích dẫn: the use of photography in posters started to become as common as illustration. Nghĩa là bằng nhau, không phải rộng rãi hơn."},
+      "6_2": {"correct":"TRUE","label":"Ex6 Q11","explanation":"Câu hỏi: Các đặc điểm của Typographic Style vẫn có thể được nhìn thấy trong posters hiện đại.\nTrích dẫn: It became the predominant style in the world in the 1970s and continues to exert its influence today."},
+      "6_3": {"correct":"TRUE","label":"Ex6 Q12","explanation":"Câu hỏi: Typographic Style phù hợp với nhu cầu toàn cầu tại một thời điểm trong lịch sử.\nTrích dẫn: It is perfectly suited to the increasingly international post-war marketplace."},
+      "6_4": {"correct":"NOT GIVEN","label":"Ex6 Q13","explanation":"Câu hỏi: Weingart có nhiều ý tưởng từ học sinh của mình tại Basel.\nKhông có thông tin nào được đề cập trong đoạn văn về việc Weingart lấy ý tưởng từ học sinh của mình."},
+
+      "7_1": {"correct":"NOT GIVEN","label":"Ex7 Q1","explanation":"Câu hỏi: Nghiên cứu thị trường được phát triển khi Daniel Starch được thuê để tìm hiểu tính hiệu quả và ghi nhớ của quảng cáo.\nBài viết chỉ nêu theory do Daniel Starch phát triển và sau đó là sự kiện ông thành lập công ty."},
+      "7_2": {"correct":"TRUE","label":"Ex7 Q2","explanation":"Câu hỏi: Các phương pháp dùng cho nghiên cứu quảng cáo radio và TV khác với phương pháp của Starch.\nStarch cho người được hỏi xem ấn phẩm, còn phương pháp kia dùng aided recall mà không cho xem trực tiếp quảng cáo."},
+      "7_3": {"correct":"FALSE","label":"Ex7 Q3","explanation":"Câu hỏi: Western Wats giới thiệu các phương pháp kém hiệu quả hơn các phương pháp của Starch và Gallup.\nTrích dẫn: Western Wats improved the market-research model ten-fold."},
+      "7_4": {"correct":"NOT GIVEN","label":"Ex7 Q4","explanation":"Câu hỏi: Việc đổi tên Western Wats thành Opinionology khiến nó trở thành công ty nghiên cứu thị trường lớn nhất thế giới.\nBài viết có đề cập việc đổi tên, nhưng không nói việc đổi tên là nguyên nhân của vị thế đó."},
+      "7_5": {"correct":"FALSE","label":"Ex7 Q5","explanation":"Câu hỏi: Trước khi có ngành công nghiệp nghiên cứu thị trường, người ta không hứng thú với việc tìm hiểu ý kiến dư luận.\nBài viết cho thấy việc quan tâm đến dư luận đã có từ trước đó."},
+
+      "10_1": {"correct":"FALSE","label":"Ex10 Q1","explanation":"Câu hỏi: Xu Xing đến sa mạc Gobi để kiểm tra chứng cứ hoá thạch về sự tồn tại của Gigantoraptor.\nTrích dẫn: he was not even looking for it at the time. He was recording a documentary in the Gobi Desert."},
+      "10_2": {"correct":"TRUE","label":"Ex10 Q2","explanation":"Câu hỏi: Thông báo của National Geographic Society năm 1999 được dựa trên chứng cứ sai.\nTrích dẫn: CT scans almost immediately proved the specimen was bogus."},
+      "10_3": {"correct":"NOT GIVEN","label":"Ex10 Q3","explanation":"Câu hỏi: Giống Gigantoraptor, Yanornis martini được phát hiện đầu tiên ở Trung Quốc.\nCó nhắc đến hai giống này nhưng không có thông tin về việc phát hiện đầu tiên ở Trung Quốc."},
+      "10_4": {"correct":"TRUE","label":"Ex10 Q4","explanation":"Câu hỏi: Các chiếc xương được khám phá bởi Robert Liscomb thay đổi thái độ của các nhà cổ sinh vật học với bắc Alaska.\nTrích dẫn: the palaeontology community had ignored the frozen tundra of north Alaska... eventually realised they were missing a trick."},
+      "10_5": {"correct":"NOT GIVEN","label":"Ex10 Q5","explanation":"Câu hỏi: Theo Fiorillo, cái tên Troodon có nghĩa là cái răng bị đau.\nĐoạn văn có nhắc đến Fiorillo nhưng không đề cập nghĩa của tên này."},
+      "10_6": {"correct":"FALSE","label":"Ex10 Q6","explanation":"Câu hỏi: Guillermo Heredia nghi ngờ rằng phát hiện của anh ta là hoá thạch khủng long.\nTrích dẫn: he had no way of realising that he'd found a 1.5-metre-long tibia of the largest sauropod ever known to walk the Earth."}
+    };
+
+    async function submitAll() {
+      const studentName = document.getElementById("studentName").value.trim();
+      const studentClass = document.getElementById("studentClass").value.trim();
+
+      if (!studentName) {
+        alert("Please enter the student's full name.");
+        document.getElementById("studentName").focus();
+        return;
+      }
+
+      let score = 0;
+      const total = Object.keys(answers).length;
+      let answerDetails = [];
+
+      for (const key in answers) {
+        const sel = document.getElementById("sel_" + key);
+        const fb = document.getElementById("fb_" + key);
+        const userAnswer = sel.value;
+        const correctAnswer = answers[key].correct;
+        const explanation = answers[key].explanation;
+
+        sel.disabled = true;
+
+        let fbHtml = "";
+        if (userAnswer === correctAnswer) {
+          score++;
+          fb.className = "feedback correct";
+          fbHtml = "Correct. Answer: " + correctAnswer + "\n\n" + explanation;
+        } else {
+          fb.className = "feedback incorrect";
+          fbHtml = "Incorrect. Your answer: " + (userAnswer || "No answer") + "\nCorrect answer: " + correctAnswer + "\n\n" + explanation;
+        }
+
+        fb.textContent = fbHtml;
+        fb.style.display = "block";
+
+        answerDetails.push(
+          answers[key].label +
+          " | Student: " + (userAnswer || "No answer") +
+          " | Correct: " + correctAnswer
+        );
+      }
+
+      document.getElementById("studentName").disabled = true;
+      document.getElementById("studentClass").disabled = true;
+
+      const percent = Math.round((score / total) * 100);
+      const scoreBox = document.getElementById("scoreBox");
+      scoreBox.innerHTML = `
+        <div class="score-num">${score}/${total}</div>
+        <div>Score: ${percent}%</div>
+      `;
+      scoreBox.style.display = "block";
+
+      document.getElementById("submitBtn").style.display = "none";
+      document.getElementById("resetBtn").style.display = "inline-block";
+
+      await sendResults(studentName, studentClass, score, total, percent, answerDetails.join("\n"));
+    }
+
+    async function sendResults(studentName, studentClass, score, total, percent, details) {
+      const emailStatus = document.getElementById("emailStatus");
+      emailStatus.className = "email-sending";
+      emailStatus.style.display = "block";
+      emailStatus.textContent = "⏳ Sending results...";
+
+      const submittedAt = new Date().toLocaleString();
+
+      const formData = new FormData();
+      formData.append("access_key", "1f9eadcb-b982-48bc-bd3d-3708b39bfa53");
+      formData.append("subject", "IELTS TFNG Submission");
+      formData.append("Student Name", studentName);
+      formData.append("Class", studentClass);
+      formData.append("Score", `${score}/${total} (${percent}%)`);
+      formData.append("Submitted At", submittedAt);
+      formData.append("Answer Details", details);
+
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          emailStatus.className = "email-ok";
+          emailStatus.textContent = "✅ Results sent successfully.";
+        } else {
+          emailStatus.className = "email-fail";
+          emailStatus.textContent = "⚠️ Could not send results.";
+        }
+      } catch (error) {
+        emailStatus.className = "email-fail";
+        emailStatus.textContent = "⚠️ Could not send results.";
+      }
+    }
+
+    function resetAll() {
+      for (const key in answers) {
+        const sel = document.getElementById("sel_" + key);
+        const fb = document.getElementById("fb_" + key);
+        sel.value = "";
+        sel.disabled = false;
+        fb.style.display = "none";
+        fb.textContent = "";
+        fb.className = "feedback";
+      }
+
+      document.getElementById("studentName").value = "";
+      document.getElementById("studentClass").value = "";
+      document.getElementById("studentName").disabled = false;
+      document.getElementById("studentClass").disabled = false;
+
+      document.getElementById("submitBtn").style.display = "inline-block";
+      document.getElementById("resetBtn").style.display = "none";
+      document.getElementById("scoreBox").style.display = "none";
+      document.getElementById("scoreBox").innerHTML = "";
+      document.getElementById("emailStatus").style.display = "none";
+      document.getElementById("emailStatus").textContent = "";
+      document.getElementById("emailStatus").className = "";
+    }
+  </script>
+</body>
+</html>
