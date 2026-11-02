@@ -54,6 +54,7 @@
   .container{border:1px solid #e7e5e4;box-shadow:none;border-radius:16px}
   button{border-radius:12px}
 </style>
+<link rel="stylesheet" href="ih-annotate.css">
 </head>
 <body>
 <nav class="ih-topbar" aria-label="IELTS Harper">
@@ -499,5 +500,7 @@ function resetAll() {
   document.getElementById("emailStatus").className = "";
 }
 </script>
+<!-- Highlight and Note (same tool as the Reading Mock Test) -->
+<script src="ih-annotate.js" data-roots=".exercise" data-skip=".feedback, .explanation"></script>
 </body>
 </html>
